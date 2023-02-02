@@ -1,3 +1,4 @@
+mod tests;
 use sha256::digest;
 
 pub struct Secret {
@@ -13,5 +14,9 @@ impl Secret {
             secret_hash: digest(secret),
             contract: contract.into(),
         }
+    }
+
+    fn compare(&self, candidate: &str) -> bool {
+        self.secret_hash == digest(candidate)
     }
 }
