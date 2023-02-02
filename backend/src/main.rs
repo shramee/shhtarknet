@@ -1,4 +1,5 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+mod secrets;
 mod starknet;
 
 #[get("/")]
