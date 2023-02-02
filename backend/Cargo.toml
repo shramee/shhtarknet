@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4.3.0"
+sha256 = "1.1.1"
