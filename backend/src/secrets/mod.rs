@@ -7,7 +7,7 @@ pub struct Secret {
 }
 
 impl Secret {
-    fn new(secret: String, contract: &str) -> Secret {
+    fn new(secret: &str, contract: &str) -> Secret {
         Self {
             id: 0,
             secret_hash: digest(secret),
