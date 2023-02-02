@@ -9,8 +9,8 @@
 			type="text"
 			id="contract_addr"
 			name="contract_addr"
-			pattern="0x[0-9A-Za-z]{64}"
-			title="Your StarkNet contract address 0x followed by 64 char code"
+			pattern="0x[0-9A-Fa-f]{64}"
+			title="Your StarkNet contract address 0x followed by 64 hexadecimals"
 			placeholder="Contract address"
 			required
 		/>
