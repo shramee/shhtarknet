@@ -1692,6 +1692,7 @@ name = "shhtarknet"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "serde",
  "sha256",
  "sled",
  "starknet",

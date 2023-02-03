@@ -5,7 +5,9 @@ use sha256::digest;
 use sled::IVec;
 use starknet::core::types::FieldElement;
 
-#[derive(Debug)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Secret {
     id: FieldElement,
     secret_hash: String,
@@ -44,7 +46,7 @@ pub struct Secrets_Manager {
 }
 
 impl Secrets_Manager {
-    fn new() -> Self {
+    pub fn new() -> Self {
         let mut path = std::env::current_dir().unwrap();
         path.push(".data");
         path.push("sled");
@@ -54,18 +56,18 @@ impl Secrets_Manager {
         }
     }
 
-    fn key(contract: &str, id: &FieldElement) -> String {
+    pub fn key(contract: &str, id: &FieldElement) -> String {
         String::from(contract).add("::").add(&id.to_string())
     }
 
-    fn save(&self, secret: Secret) -> sled::Result<Option<IVec>> {
+    pub fn save(&self, secret: Secret) -> sled::Result<Option<IVec>> {
         self.db.insert(
             &Self::key(&secret.contract, &secret.id),
             secret.secret_hash.as_bytes(),
         )
     }
 
-    fn get(&self, contract: &str, id: &str) -> Option<Secret> {
+    pub fn get(&self, contract: &str, id: &str) -> Option<Secret> {
         let id_felt = str_to_felt(&id);
         let hash_res = self.db.get(&Self::key(contract, &id_felt));
         match hash_res {
