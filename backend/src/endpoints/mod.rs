@@ -2,6 +2,7 @@ use crate::{
     secrets::{Secret, SecretsManager},
     starknet::felt_to_str,
 };
+use actix_cors::Cors;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserialize;
 use starknet::core::types::FieldElement;
@@ -43,19 +44,27 @@ struct SecretRawInfo {
 }
 
 #[post("/secret")]
-async fn save_secret(db_manager: web::Data<SecretsManager>, req: web::Json<SecretRawInfo>) -> impl Responder {
+async fn save_secret(
+    db_manager: web::Data<SecretsManager>,
+    req: web::Json<SecretRawInfo>,
+) -> impl Responder {
     println!("Welcome {:#?}!", req);
 
-	HttpResponse::Ok().json(match db_manager.save(Secret::new( &req.id, &req.secret, &req.contract )) {
-		Ok(_) => (String::from("Okay"), String::from("Secret added")),
-		Err(e) => (String::from("Error"), format!( "{e:#?}" ))
-	})
+    HttpResponse::Ok().json(
+        match db_manager.save(Secret::new(&req.id, &req.secret, &req.contract)) {
+            Ok(_) => (String::from("Okay"), String::from("Secret added")),
+            Err(e) => (String::from("Error"), format!("{e:#?}")),
+        },
+    )
 }
 
 pub async fn setup() -> std::io::Result<()> {
     let secrets_db = web::Data::new(SecretsManager::new());
+
     HttpServer::new(move || {
+        let cors = Cors::permissive();
         App::new()
+            .wrap(cors)
             .app_data(secrets_db.clone())
             .service(get_secrets)
             .service(get_secret)
