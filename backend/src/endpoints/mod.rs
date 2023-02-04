@@ -1,15 +1,21 @@
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
-use secrets::{Secret, Secrets_Manager};
+use crate::secrets::{Secret, SecretsManager};
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/secret/{contract}/{id}")]
-pub async fn get_secret(data: web::Path<(String, String)>) -> impl Responder {
-    let man = Secrets_Manager::new();
-    HttpResponse::Ok().json(man.get(&data.0, &data.1))
+pub async fn get_secret(db_manager: web::Data<SecretsManager>,data: web::Path<(String, String)>) -> impl Responder {
+	HttpResponse::Ok().json(db_manager.get(&data.0, &data.1))
+}
 }
 
 pub async fn setup() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(get_secret))
-        .bind(("127.0.0.1", 8080))?
-        .run()
-        .await
+	let secrets_db = web::Data::new(SecretsManager::new());
+    HttpServer::new(move || {
+        App::new()
+            .app_data(secrets_db.clone())
+            .service(get_secret)
+            .service(save_secret)
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }

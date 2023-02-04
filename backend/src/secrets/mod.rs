@@ -7,7 +7,7 @@ use starknet::core::types::FieldElement;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Secret {
     id: FieldElement,
     secret_hash: String,
@@ -41,11 +41,12 @@ impl Secret {
     }
 }
 
-pub struct Secrets_Manager {
+#[derive(Clone)]
+pub struct SecretsManager {
     db: sled::Db,
 }
 
-impl Secrets_Manager {
+impl SecretsManager {
     pub fn new() -> Self {
         let mut path = std::env::current_dir().unwrap();
         path.push(".data");
