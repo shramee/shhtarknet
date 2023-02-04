@@ -7,7 +7,7 @@ use starknet::core::types::FieldElement;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Secret {
     id: FieldElement,
     secret_hash: String,
@@ -41,6 +41,7 @@ impl Secret {
     }
 }
 
+#[derive(Clone)]
 pub struct SecretsManager {
     db: sled::Db,
 }
