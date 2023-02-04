@@ -23,8 +23,8 @@ pub fn str_to_felt(data: &str) -> FieldElement {
     FieldElement::from_bytes_be(&id_bytes).unwrap()
 }
 
-pub fn felt_to_str(data: FieldElement) -> String {
-	let bytes = f.to_bytes_be().to_vec();
+pub fn felt_to_str(data: &FieldElement) -> String {
+	let bytes = data.to_bytes_be().to_vec();
 	String::from_utf8(bytes.iter().filter(|v| **v > 0).map(|x| *x).collect()).unwrap()
 }
 
