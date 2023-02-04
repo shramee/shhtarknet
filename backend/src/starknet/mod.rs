@@ -16,9 +16,10 @@ use starknet::{
 
 pub fn str_to_felt(data: &str) -> FieldElement {
     let mut id_bytes: [u8; 32] = [0; 32];
+	let bytes = data.as_bytes();
 
-    for (i, byte) in data.as_bytes().iter().enumerate() {
-        id_bytes[31 - i] = *byte;
+    for (i, byte) in bytes.iter().enumerate() {
+        id_bytes[32 - bytes.len() + i] = *byte;
     }
     FieldElement::from_bytes_be(&id_bytes).unwrap()
 }
