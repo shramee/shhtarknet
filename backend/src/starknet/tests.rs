@@ -1,5 +1,7 @@
 // use crate::starknet;
-use crate::starknet::{StarknetManager, felt_to_str};
+use crate::starknet::{felt_to_str, StarknetManager};
+
+use super::str_to_felt;
 
 #[tokio::test]
 async fn test_goerli_call() {
@@ -46,4 +48,13 @@ async fn test_invoke() {
         .await;
 
     assert!(resp.is_ok(), "Invoke shouldn't have an error");
+}
+
+#[test]
+fn test_felts() {
+    let subject = "my_test";
+    let sub_felt = str_to_felt(subject);
+    let sub_str = felt_to_str(&sub_felt);
+
+    assert_eq!(sub_str, subject)
 }
