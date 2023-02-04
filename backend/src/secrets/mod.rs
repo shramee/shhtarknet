@@ -17,11 +17,11 @@ pub struct Secret {
 }
 
 impl Secret {
-    fn new(id: &str, secret: &str, contract: &str) -> Self {
+    pub fn new(id: &str, secret: &str, contract: &str) -> Self {
         Self::new_from_hash(id, &digest(secret), contract)
     }
 
-    fn new_from_hash(id: &str, secret_hash: &str, contract: &str) -> Self {
+    pub fn new_from_hash(id: &str, secret_hash: &str, contract: &str) -> Self {
         Self {
             id: str_to_felt(&id),
             secret_hash: secret_hash.into(),
