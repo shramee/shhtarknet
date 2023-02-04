@@ -41,11 +41,11 @@ impl Secret {
     }
 }
 
-pub struct Secrets_Manager {
+pub struct SecretsManager {
     db: sled::Db,
 }
 
-impl Secrets_Manager {
+impl SecretsManager {
     pub fn new() -> Self {
         let mut path = std::env::current_dir().unwrap();
         path.push(".data");

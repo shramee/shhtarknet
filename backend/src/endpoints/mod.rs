@@ -1,9 +1,9 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
-use secrets::{Secret, Secrets_Manager};
+use crate::secrets::{Secret, SecretsManager};
 
 #[get("/secret/{contract}/{id}")]
 pub async fn get_secret(data: web::Path<(String, String)>) -> impl Responder {
-    let man = Secrets_Manager::new();
+    let man = SecretsManager::new();
     HttpResponse::Ok().json(man.get(&data.0, &data.1))
 }
 
