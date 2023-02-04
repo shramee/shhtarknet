@@ -3,6 +3,7 @@ use crate::{
     starknet::felt_to_str,
 };
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use serde::Deserialize;
 use starknet::core::types::FieldElement;
 
 #[get("/secret/{contract}/{id}")]
@@ -13,7 +14,7 @@ pub async fn get_secret(
     HttpResponse::Ok().json(db_manager.get(&data.0, &data.1))
 }
 
-#[get("/secrets")]
+#[get("/secret")]
 pub async fn get_secrets(db_manager: web::Data<SecretsManager>) -> impl Responder {
     let mut response: Vec<(String, String)> = vec![];
 
@@ -34,9 +35,21 @@ pub async fn get_secrets(db_manager: web::Data<SecretsManager>) -> impl Responde
     HttpResponse::Ok().json(response)
 }
 
+#[derive(Deserialize, Debug)]
+struct SecretRawInfo {
+    id: String,
+    secret: String,
+    contract: String,
+}
+
 #[post("/secret")]
-async fn save_secret(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(format!("{req_body:#?}"))
+async fn save_secret(db_manager: web::Data<SecretsManager>, req: web::Json<SecretRawInfo>) -> impl Responder {
+    println!("Welcome {:#?}!", req);
+
+	HttpResponse::Ok().json(match db_manager.save(Secret::new( &req.id, &req.secret, &req.contract )) {
+		Ok(_) => (String::from("Okay"), String::from("Secret added")),
+		Err(e) => (String::from("Error"), format!( "{e:#?}" ))
+	})
 }
 
 pub async fn setup() -> std::io::Result<()> {
