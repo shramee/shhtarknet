@@ -14,6 +14,20 @@ use starknet::{
     signers::{local_wallet, LocalWallet, SigningKey},
 };
 
+pub fn str_to_felt(data: &str) -> FieldElement {
+    let mut id_bytes: [u8; 32] = [0; 32];
+
+    for (i, byte) in data.as_bytes().iter().enumerate() {
+        id_bytes[31 - i] = *byte;
+    }
+    FieldElement::from_bytes_be(&id_bytes).unwrap()
+}
+
+pub fn felt_to_str(data: &FieldElement) -> String {
+	let bytes = data.to_bytes_be().to_vec();
+	String::from_utf8(bytes.iter().filter(|v| **v > 0).map(|x| *x).collect()).unwrap()
+}
+
 pub struct StarknetManager {
     pub provider: SequencerGatewayProvider,
     pub account: Option<SingleOwnerAccount<SequencerGatewayProvider, LocalWallet>>,

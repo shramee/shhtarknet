@@ -1,5 +1,5 @@
 // use crate::starknet;
-use crate::starknet::StarknetManager;
+use crate::starknet::{StarknetManager, felt_to_str};
 
 #[tokio::test]
 async fn test_goerli_call() {
@@ -13,14 +13,7 @@ async fn test_goerli_call() {
         .await
         .unwrap();
 
-    let res: Vec<String> = resp
-        .result
-        .iter()
-        .map(|f| {
-            let bytes = f.to_bytes_be().to_vec();
-            String::from_utf8(bytes.iter().filter(|v| **v > 0).map(|x| *x).collect()).unwrap()
-        })
-        .collect();
+    let res: Vec<String> = resp.result.iter().map(|f| felt_to_str(f)).collect();
 
     assert_eq!(&res[0], "ETH");
 }
