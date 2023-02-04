@@ -7,20 +7,13 @@ use starknet::core::types::FieldElement;
 
 use serde::{Deserialize, Serialize};
 
+use crate::starknet::str_to_felt;
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Secret {
     id: FieldElement,
     secret_hash: String,
     contract: String,
-}
-
-pub fn str_to_felt(data: &str) -> FieldElement {
-    let mut id_bytes: [u8; 32] = [0; 32];
-
-    for (i, byte) in data.as_bytes().iter().enumerate() {
-        id_bytes[31 - i] = *byte;
-    }
-    FieldElement::from_bytes_be(&id_bytes).unwrap()
 }
 
 impl Secret {
@@ -43,14 +36,18 @@ impl Secret {
 
 #[derive(Clone)]
 pub struct SecretsManager {
-    db: sled::Db,
+    pub db: sled::Db,
 }
 
 impl SecretsManager {
     pub fn new() -> Self {
+        Self::new_custom("sled")
+    }
+
+    pub fn new_custom( db_name: &str ) -> Self {
         let mut path = std::env::current_dir().unwrap();
         path.push(".data");
-        path.push("sled");
+        path.push(db_name);
         println!("The current directory is {}", path.display());
         Self {
             db: sled::open(path).unwrap(),

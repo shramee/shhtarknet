@@ -1,6 +1,6 @@
 use starknet::core::types::FieldElement;
 
-use crate::secrets::{str_to_felt, Secret, SecretsManager};
+use crate::{secrets::{str_to_felt, Secret, SecretsManager}, starknet::felt_to_str};
 
 #[test]
 fn test_create_secret() {
@@ -23,7 +23,7 @@ fn test_match_secret() {
 
 #[test]
 fn save_secret() {
-    let db_man = SecretsManager::new();
+    let db_man = SecretsManager::new_custom("test");
     let secret_orig = Secret::new("my_secret", "abcd", "contract_addr");
     let res = db_man.save(secret_orig);
     res.expect("Couldn't save...");
