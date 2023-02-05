@@ -20,9 +20,9 @@ Secrets for Starknet contracts. Create and manage secrets for StarkNet smart con
 				- [callback\_entrypoint `felt`](#callback_entrypoint-felt)
 				- [callback\_param `felt`](#callback_param-felt)
 		- [Processing the job](#processing-the-job)
-	- [Usage](#usage)
-			- [🛠️ *TODO*](#️-todo)
+	- [Usage](#usage) 🛠️ `TODO`
 	- [Contribute](#contribute)
+		- [Something not right?](#something-not-right)
 		- [Is their a better way?](#is-their-a-better-way)
 
 ## Under the hood
@@ -102,4 +102,4 @@ Found a bug? Something doesn't seem right? Please create an issue. Thanks in adv
 
 #### Is their a better way?
 
-There is always a better way to do something. We would love to hear from you! Please create an issue on the repo.
+There is always a better way. Please create an issue, we would love to hear from you!
