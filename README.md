@@ -4,12 +4,26 @@ Secrets for Starknet contracts. Create and manage secrets for StarkNet smart con
 
 ## Contents
 
-* [Under the hood](#under-the-hood)
-  * [What is a secret](#secret-structure)
-  * [Creating a secret](#creating-a-secret)
-  * [What is a job](#what-is-a-job)
-  * [What is a secret](#)
-  * [What is a secret](#)
+- [ShhtarkNet](#shhtarknet)
+	- [Contents](#contents)
+	- [Under the hood](#under-the-hood)
+		- [Secret structure](#secret-structure)
+				- [contract](#contract)
+				- [id](#id)
+				- [hash](#hash)
+		- [Creating a secret](#creating-a-secret)
+		- [Consuming a secret](#consuming-a-secret)
+		- [Job structure](#job-structure)
+				- [candidate\_len `felt`](#candidate_len-felt)
+				- [candidate `felt*`](#candidate-felt)
+				- [callback\_contract `felt`](#callback_contract-felt)
+				- [callback\_entrypoint `felt`](#callback_entrypoint-felt)
+				- [callback\_param `felt`](#callback_param-felt)
+		- [Processing the job](#processing-the-job)
+	- [Usage](#usage)
+			- [🛠️ *TODO*](#️-todo)
+	- [Contribute](#contribute)
+		- [Is their a better way?](#is-their-a-better-way)
 
 ## Under the hood
 
@@ -32,7 +46,7 @@ The value of the secret is never saved but only it's hash
 * Secret hash is generated and secret is saved to the DB.
 * 
 
-### Using a secret in a smart contract
+### Consuming a secret
 
 * Cairo contracts create a queue of jobs
 * Endpoint `shhtarknet_jobs` returns an array of jobs
@@ -80,6 +94,12 @@ Executing the job involes,
 
 ## Contribute
 
+Please have a look around at the issues, comment on the issue if you find something you'd be interested in working on!
+
+#### Something not right?
+
+Found a bug? Something doesn't seem right? Please create an issue. Thanks in advance! :bow:
+
 #### Is their a better way?
 
-Is there a better way to do something? We would love to hear from you! Please create an issue on the repo.
+There is always a better way to do something. We would love to hear from you! Please create an issue on the repo.
