@@ -5,25 +5,26 @@ Secrets for Starknet contracts. Create and manage secrets for StarkNet smart con
 ## Contents
 
 - [ShhtarkNet](#shhtarknet)
-	- [Contents](#contents)
-	- [Under the hood](#under-the-hood)
-		- [Secret structure](#secret-structure)
-				- [contract](#contract)
-				- [id](#id)
-				- [hash](#hash)
-		- [Creating a secret](#creating-a-secret)
-		- [Consuming a secret](#consuming-a-secret)
-		- [Job structure](#job-structure)
-				- [candidate\_len `felt`](#candidate_len-felt)
-				- [candidate `felt*`](#candidate-felt)
-				- [callback\_contract `felt`](#callback_contract-felt)
-				- [callback\_entrypoint `felt`](#callback_entrypoint-felt)
-				- [callback\_param `felt`](#callback_param-felt)
-		- [Processing the job](#processing-the-job)
-	- [Usage](#usage) 🛠️ `TODO`
-	- [Contribute](#contribute)
-		- [Something not right?](#something-not-right)
-		- [Is their a better way?](#is-their-a-better-way)
+  - [Contents](#contents)
+  - [Under the hood](#under-the-hood)
+    - [Secret structure](#secret-structure)
+      - [contract](#contract)
+      - [id](#id)
+      - [hash](#hash)
+    - [Creating a secret](#creating-a-secret)
+    - [Consuming a secret](#consuming-a-secret)
+    - [Job structure](#job-structure)
+      - [candidate\_len `felt`](#candidate_len-felt)
+      - [candidate `felt*`](#candidate-felt)
+      - [callback\_contract `felt`](#callback_contract-felt)
+      - [callback\_entrypoint `felt`](#callback_entrypoint-felt)
+      - [callback\_param `felt`](#callback_param-felt)
+    - [Processing the job](#processing-the-job)
+  - [Usage](#usage)
+      - [🛠️ *TODO*](#️-todo)
+  - [Contribute](#contribute)
+      - [Something not right?](#something-not-right)
+      - [Is their a better way?](#is-their-a-better-way)
 
 ## Under the hood
 
@@ -31,13 +32,13 @@ Secrets for Starknet contracts. Create and manage secrets for StarkNet smart con
 
 A secret is represented by these attributes,
 
-##### contract
+#### contract
 Secrets are bound to a contract address, contracts can only consume secret matching the contract address.
 
-##### id
+#### id
 The identifier for the secret, contracts use the ID to refer to the secret.
 
-##### hash
+#### hash
 The value of the secret is never saved but only it's hash
 
 ### Creating a secret
@@ -60,19 +61,19 @@ A job represents a request to consume the secret, with a bunch of passwords to c
 
 A job is defined by,
 
-##### candidate_len `felt`
+#### candidate_len `felt`
 Number of candidates to compare
 
-##### candidate `felt*`
+#### candidate `felt*`
 Pointer to the first candidate
 
-##### callback_contract `felt`
+#### callback_contract `felt`
 Contract to invoke when request is processed
 
-##### callback_entrypoint `felt`
+#### callback_entrypoint `felt`
 Contract entrypoint to call when request is processed
 
-##### callback_param `felt`
+#### callback_param `felt`
 An optional custom parameter to identify what needs to
 be done if the job succeeds.
 
