@@ -24,7 +24,7 @@ Secrets for Starknet contracts. Create and manage secrets for StarkNet smart con
       - [🛠️ *TODO*](#️-todo)
   - [Contribute](#contribute)
       - [Something not right?](#something-not-right)
-      - [Is their a better way?](#is-their-a-better-way)
+      - [Is there a better way?](#is-there-a-better-way)
 
 ## Under the hood
 
@@ -39,7 +39,7 @@ Secrets are bound to a contract address, contracts can only consume secret match
 The identifier for the secret, contracts use the ID to refer to the secret.
 
 #### hash
-The value of the secret is never saved but only it's hash
+The value of the secret is never saved but only its hash
 
 ### Creating a secret
 
@@ -57,7 +57,7 @@ The value of the secret is never saved but only it's hash
 
 A job represents a request to consume the secret, with a bunch of passwords to compare against.
 
-**:warning: Notice:** multiple candidates to make it harder to identify the value that matched. [Is their a better way?](is-their-a-better-way-)
+**:warning: Notice:** multiple candidates make it harder to identify the value that matched. [Is their a better way?](is-their-a-better-way-)
 
 A job is defined by,
 
@@ -77,11 +77,11 @@ Contract entrypoint to call when request is processed
 An optional custom parameter to identify what needs to
 be done if the job succeeds.
 
-🟢 Invoke will not include matched value, so use this param to indentify what needs to be done (or what/who for).
+🟢 Invoke will not include matched value, so use this param to identify what needs to be done (or what/who for).
 
 ### Processing the job
 
-Executing the job involes,
+Executing the job involves,
 
 1. Looping all candidates and matching against the saved hash.
 2. Invoke `callback_entrypoint` in `callback_entrypoint` with `callback_param` and,
@@ -101,6 +101,6 @@ Please have a look around at the issues, comment on the issue if you find someth
 
 Found a bug? Something doesn't seem right? Please create an issue. Thanks in advance! :bow:
 
-#### Is their a better way?
+#### Is there a better way?
 
 There is always a better way. Please create an issue, we would love to hear from you!
